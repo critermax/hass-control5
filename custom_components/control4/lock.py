@@ -1,4 +1,4 @@
-"""Platform for Control4 Locks."""
+"""Platform for Control5 Locks."""
 from __future__ import annotations
 
 import logging
@@ -22,7 +22,7 @@ CONTROL4_CATEGORY = "locks"
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
-    """Set up Control4 locks from a config entry."""
+    """Set up Control5 locks from a config entry."""
     entry_data = hass.data[DOMAIN][entry.entry_id]
 
     items_of_category = await get_items_of_category(hass, entry, CONTROL4_CATEGORY)
@@ -50,7 +50,7 @@ async def async_setup_entry(
                 continue
         except KeyError:
             _LOGGER.exception(
-                "Unknown device properties received from Control4: %s",
+                "Unknown device properties received from Control5: %s",
                 item,
             )
             continue
@@ -78,10 +78,10 @@ async def async_setup_entry(
 
 
 class Control4Lock(Control4Entity, LockEntity):
-    """Control4 lock entity."""
+    """Control5 lock entity."""
 
     def create_api_object(self):
-        """Create a pyControl4 device object.
+        """Create a pyControl5 device object.
 
         This exists so the director token used is always the latest one, without needing to re-init the entire entity.
         """
@@ -115,11 +115,11 @@ class Control4Lock(Control4Entity, LockEntity):
             return self._extra_state_attributes["RelayState"] == 0
 
     async def async_lock(self, **kwargs):
-        """Lock the lock. Assume no code is required, but unsure if that is true of all locks in control4"""
+        """Lock the lock. Assume no code is required, but unsure if that is true of all locks in control5"""
         c4_relay = self.create_api_object()
         await c4_relay.open()
 
     async def async_unlock(self, **kwargs):
-        """Unlock the lock. Assume no code is required, but unsure if that is true of all locks in control4"""
+        """Unlock the lock. Assume no code is required, but unsure if that is true of all locks in control5"""
         c4_relay = self.create_api_object()
         await c4_relay.close()
