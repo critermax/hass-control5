@@ -1,4 +1,4 @@
-"""Platform for Control4 Lights."""
+"""Platform for Control5 Lights."""
 from __future__ import annotations
 
 import logging
@@ -28,7 +28,7 @@ CONTROL4_CATEGORY = "lights"
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
-    """Set up Control4 lights from a config entry."""
+    """Set up Control5 lights from a config entry."""
     entry_data = hass.data[DOMAIN][entry.entry_id]
 
     items_of_category = await get_items_of_category(hass, entry, CONTROL4_CATEGORY)
@@ -56,7 +56,7 @@ async def async_setup_entry(
                 continue
         except KeyError:
             _LOGGER.exception(
-                "Unknown device properties received from Control4: %s",
+                "Unknown device properties received from Control5: %s",
                 item,
             )
             continue
@@ -82,10 +82,10 @@ async def async_setup_entry(
 
 
 class Control4Light(Control4Entity, LightEntity):
-    """Control4 light entity."""
+    """Control5 light entity."""
 
     def create_api_object(self):
-        """Create a pyControl4 device object.
+        """Create a pyControl5 device object.
 
         This exists so the director token used is always the latest one, without needing to re-init the entire entity.
         """

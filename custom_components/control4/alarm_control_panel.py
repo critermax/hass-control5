@@ -1,4 +1,4 @@
-"""Platform for Control4 Alarm Control Panel."""
+"""Platform for Control5 Alarm Control Panel."""
 from __future__ import annotations
 
 from datetime import timedelta
@@ -189,7 +189,7 @@ CONTROL4_PARTITION_STATE_DATA_MAPPING = {
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities
 ):
-    """Set up Control4 alarm control panel from a config entry."""
+    """Set up Control5 alarm control panel from a config entry."""
     # Register alarm_control_panel specific service
     platform = entity_platform.current_platform.get()
     platform.async_register_entity_service(
@@ -235,7 +235,7 @@ async def async_setup_entry(
                 continue
         except KeyError as exception:
             _LOGGER.warning(
-                "Unknown device properties received from Control4: %s %s",
+                "Unknown device properties received from Control5: %s %s",
                 exception,
                 item,
             )

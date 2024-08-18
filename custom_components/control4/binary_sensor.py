@@ -1,4 +1,4 @@
-"""Platform for Control4 Binary Sensor."""
+"""Platform for Control5 Binary Sensor."""
 from __future__ import annotations
 
 import json
@@ -21,7 +21,7 @@ from .director_utils import director_get_entry_variables
 _LOGGER = logging.getLogger(__name__)
 
 CONTROL4_CATEGORY = "sensors"
-CONTROL4_CONTROL_TYPE = "control4_contactsingle"
+CONTROL4_CONTROL_TYPE = "control5_contactsingle"
 CONTROL4_SENSOR_VAR = "ContactState"
 
 CONTROL4_DOOR_PROXY = "contactsingle_doorcontactsensor_c4"
@@ -99,7 +99,7 @@ CONTROL4_PROXY_MAPPING = {
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities
 ):
-    """Set up Control4 binary sensor from a config entry."""
+    """Set up Control5 binary sensor from a config entry."""
 
     entry_data = hass.data[DOMAIN][entry.entry_id]
 
@@ -149,7 +149,7 @@ async def async_setup_entry(
                 continue
         except KeyError:
             _LOGGER.warning(
-                "Unknown device properties received from Control4: %s",
+                "Unknown device properties received from Control5: %s",
                 item,
             )
             continue
@@ -181,7 +181,7 @@ async def async_setup_entry(
 
 
 class Control4BinarySensor(Control4Entity, BinarySensorEntity):
-    """Control4 alarm control panel entity."""
+    """Control5 alarm control panel entity."""
 
     def __init__(
         self,
@@ -198,7 +198,7 @@ class Control4BinarySensor(Control4Entity, BinarySensorEntity):
         device_class: str,
         alarm_zone_id: int,
     ) -> None:
-        """Initialize Control4 binary sensor entity."""
+        """Initialize Control5 binary sensor entity."""
         super().__init__(
             entry_data,
             entry,
@@ -258,7 +258,7 @@ class Control4BinarySensor(Control4Entity, BinarySensorEntity):
 
     @property
     def device_info(self):
-        """Return info of parent Control4 device of entity."""
+        """Return info of parent Control5 device of entity."""
         # In Control4, binary sensors are not attached to a parent device.
         # Rather, they are attached to a room id.
         # Therefore, there is no device info for Home Assistant to use.

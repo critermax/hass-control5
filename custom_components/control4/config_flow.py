@@ -1,4 +1,4 @@
-"""Config flow for Control4 integration."""
+"""Config flow for Control5 integration."""
 from asyncio import TimeoutError as asyncioTimeoutError
 import logging
 
@@ -42,7 +42,7 @@ DATA_SCHEMA = vol.Schema(
 
 
 class Control4Validator:
-    """Validates that config details can be used to authenticate and communicate with Control4."""
+    """Validates that config details can be used to authenticate and communicate with Control5."""
 
     def __init__(self, host, username, password, hass):
         """Initialize."""
@@ -54,11 +54,11 @@ class Control4Validator:
         self.hass = hass
 
     async def authenticate(self) -> bool:
-        """Test if we can authenticate with the Control4 account API."""
+        """Test if we can authenticate with the Control5 account API."""
         try:
             account_session = aiohttp_client.async_get_clientsession(self.hass)
             account = C4Account(self.username, self.password, account_session)
-            # Authenticate with Control4 account
+            # Authenticate with Control5 account
             await account.getAccountBearerToken()
 
             # Get controller name
@@ -74,7 +74,7 @@ class Control4Validator:
             return False
 
     async def connect_to_director(self) -> bool:
-        """Test if we can connect to the local Control4 Director."""
+        """Test if we can connect to the local Control5 Director."""
         try:
             director_session = aiohttp_client.async_get_clientsession(
                 self.hass, verify_ssl=False
@@ -85,12 +85,12 @@ class Control4Validator:
             await director.getAllItemInfo()
             return True
         except (Unauthorized, ClientError, asyncioTimeoutError):
-            _LOGGER.error("Failed to connect to the Control4 controller")
+            _LOGGER.error("Failed to connect to the Control5 controller")
             return False
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for Control4."""
+    """Handle a config flow for Control5."""
 
     VERSION = 1
 
@@ -178,7 +178,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
 
 class OptionsFlowHandler(config_entries.OptionsFlow):
-    """Handle a option flow for Control4."""
+    """Handle a option flow for Control5."""
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Initialize options flow."""

@@ -1,6 +1,6 @@
-"""Constants for the Control4 integration."""
+"""Constants for the Control5 integration."""
 
-DOMAIN = "control4"
+DOMAIN = "control5"
 
 CONF_ALARM_HOME_MODE = "alarm_home_mode"
 DEFAULT_ALARM_HOME_MODE = "(not set)"
